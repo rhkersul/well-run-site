@@ -261,7 +261,7 @@
     if (du < 0) return ["closed","Realizada"];
     return du > 150 ? ["soon","Em breve"] : ["open","Inscrições abertas"];
   }
-  function fmtKm(a){ return a.map(function(k){ return (Number.isInteger(k)?k:String(k).replace(".",","))+"K"; }).join(" · "); }
+  function fmtKm(a){ return a.map(function(k){ return Math.round(k)+"K"; }).join(" · "); }
   function fmtPrice(v){ return "R$ " + Math.round(v).toLocaleString("pt-BR"); }
 
   var upcoming = RACES.filter(function(r){ return daysUntil(r.d) >= 0; })
