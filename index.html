@@ -7,31 +7,39 @@
   }
 
   :root {
-    --paper: #FCFCFB;
-    --ink: #0B0B0C;
-    --ink-2: #232326;
-    --muted: #74716C;
-    --line: #E6E3DE;
+    --paper: #FAF8F1;
+    --ink: #1E192A;
+    --ink-2: #3A3548;
+    --muted: #6E6A76;
+    --line: #E7E2D8;
     --card: #FFFFFF;
-    --inv-bg: #0B0B0C;
-    --inv-fg: #FCFCFB;
+    --inv-bg: #1E192A;
+    --inv-fg: #FAF8F1;
+    --accent: #6D6DAA;
+    --accent-soft: #ECEBF6;
+    --positive: #5E8A57;
+    --positive-soft: #E9F0E7;
+    --yellow: #F5D93D;
     --maxw: 1180px;
     --disp: "WRDisplay", "Arial Narrow", "Haettenschweiler", Impact, sans-serif;
     --body: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper: #0B0B0C; --ink: #F5F4F1; --ink-2: #d9d8d4; --muted: #918e88;
-      --line: #262629; --card: #131315; --inv-bg: #F5F4F1; --inv-fg: #0B0B0C;
+      --paper: #16131F; --ink: #F3F1F8; --ink-2: #D6D2E0; --muted: #918DA0;
+      --line: #2A2536; --card: #1F1B2B; --inv-bg: #F3F1F8; --inv-fg: #16131F;
+      --accent: #9B9BD8; --accent-soft: #262038; --positive: #8FB98A; --positive-soft: #23301F;
     }
   }
   :root[data-theme="dark"] {
-    --paper: #0B0B0C; --ink: #F5F4F1; --ink-2: #d9d8d4; --muted: #918e88;
-    --line: #262629; --card: #131315; --inv-bg: #F5F4F1; --inv-fg: #0B0B0C;
+    --paper: #16131F; --ink: #F3F1F8; --ink-2: #D6D2E0; --muted: #918DA0;
+    --line: #2A2536; --card: #1F1B2B; --inv-bg: #F3F1F8; --inv-fg: #16131F;
+    --accent: #9B9BD8; --accent-soft: #262038; --positive: #8FB98A; --positive-soft: #23301F;
   }
   :root[data-theme="light"] {
-    --paper: #FCFCFB; --ink: #0B0B0C; --ink-2: #232326; --muted: #74716C;
-    --line: #E6E3DE; --card: #FFFFFF; --inv-bg: #0B0B0C; --inv-fg: #FCFCFB;
+    --paper: #FAF8F1; --ink: #1E192A; --ink-2: #3A3548; --muted: #6E6A76;
+    --line: #E7E2D8; --card: #FFFFFF; --inv-bg: #1E192A; --inv-fg: #FAF8F1;
+    --accent: #6D6DAA; --accent-soft: #ECEBF6; --positive: #5E8A57; --positive-soft: #E9F0E7;
   }
 
   * { box-sizing: border-box; }
@@ -63,11 +71,11 @@
   .btn {
     display: inline-flex; align-items: center; gap: .5em; cursor: pointer;
     font-size: .82rem; letter-spacing: .06em; text-transform: uppercase;
-    padding: 11px 18px; border-radius: 999px; border: 1px solid var(--ink);
-    background: var(--ink); color: var(--paper); transition: transform .15s, opacity .15s;
+    padding: 11px 18px; border-radius: 999px; border: 1px solid var(--accent);
+    background: var(--accent); color: #fff; transition: transform .15s, opacity .15s;
   }
   .btn:hover { transform: translateY(-1px); opacity: .9; }
-  .btn--ghost { background: transparent; color: var(--ink); }
+  .btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 
   /* HERO */
   .hero { padding: 46px 0 20px; }
@@ -96,7 +104,7 @@
   /* FILTERS */
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
   .chip { cursor: pointer; font-size: .8rem; letter-spacing: .04em; padding: 8px 15px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); }
-  .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
   /* STARTLIST */
   .startlist { border-top: 1px solid var(--ink); }
@@ -118,10 +126,10 @@
   .race__price b { font-weight: 600; }
   .race__price span { display: block; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
   .status { display: inline-flex; align-items: center; gap: 7px; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-  .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); display: inline-block; }
+  .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--positive); display: inline-block; }
   .status.soon i { background: var(--muted); }
   .status.closed { color: var(--muted); } .status.closed i { background: var(--line); }
-  .tag { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 999px; padding: 3px 8px; }
+  .tag { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; border: 1px solid var(--accent-soft); background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 3px 8px; }
   .more { margin-top: 26px; color: var(--muted); font-size: .85rem; }
 
   /* FEATURES */
@@ -173,7 +181,7 @@
 </style>
 
 <nav class="nav">
-  <a class="brand" href="#top">WELL RUN</a>
+  <a class="brand" href="#top">RUN1</a>
   <div class="nav__right">
     <div class="nav__links">
       <a href="#calendario">Calendário</a>
@@ -219,9 +227,9 @@
 </section>
 
 <section class="section wrap" id="recursos">
-  <div class="section__head"><div><p class="eyebrow">Por que Well Run</p><h2 class="disp">Feito para quem corre</h2></div></div>
+  <div class="section__head"><div><p class="eyebrow">Por que RUN1</p><h2 class="disp">Feito para quem corre</h2></div></div>
   <div class="features">
-    <div class="feature reveal"><span class="k">01 — Desconto</span><h3>Cupom exclusivo</h3><p>Provas selecionadas com desconto Well Run. Você informa o e-mail e recebe o código na hora.</p></div>
+    <div class="feature reveal"><span class="k">01 — Desconto</span><h3>Cupom exclusivo</h3><p>Provas selecionadas com desconto RUN1. Você informa o e-mail e recebe o código na hora.</p></div>
     <div class="feature reveal"><span class="k">02 — Lembretes</span><h3>Nunca perca o prazo</h3><p>Avisos dos últimos dias de inscrição e contagem regressiva das provas que você favoritar.</p></div>
     <div class="feature reveal"><span class="k">03 — Temporada</span><h3>Sua linha do tempo</h3><p>Favorite corridas e monte sua temporada — com alerta quando duas caírem perto demais.</p></div>
   </div>
@@ -230,7 +238,7 @@
 <section class="invert" id="baixar">
   <div class="cta wrap">
     <p class="eyebrow reveal">O calendário no bolso</p>
-    <h2 class="disp reveal">Leve o Well Run com você</h2>
+    <h2 class="disp reveal">Leve o RUN1 com você</h2>
     <p class="reveal">O app é gratuito, sem login pra navegar. Calendário completo, favoritos, linha do tempo e cupons — direto no seu celular.</p>
     <div class="cta__row reveal">
       <a class="btn" href="https://expo.dev/artifacts/eas/3XSb4fyUMpyh4SpsIpsfDh19yLRzC84oZi-r5ddvvuI.apk">Baixar para Android</a>
@@ -242,7 +250,7 @@
 
 <footer>
   <div class="wrap foot">
-    <div class="foot__brand">WELL RUN</div>
+    <div class="foot__brand">RUN1</div>
     <small>Calendário de corridas de São Paulo<br />Atualizado toda semana · 2026</small>
   </div>
 </footer>
