@@ -6,7 +6,7 @@
   <atom:link href="https://rhkersul.github.io/well-run-site/blog/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Notícias, calendário e guias de corrida de rua e trail running no Brasil.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Thu, 30 Jul 2026 14:21:58 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 30 Jul 2026 14:47:26 GMT</lastBuildDate>
   <item>
     <title>As 8 maratonas de asfalto no calendário brasileiro</title>
     <link>https://rhkersul.github.io/well-run-site/blog/maratonas-asfalto-brasil-calendario/</link>
@@ -14,6 +14,14 @@
     <pubDate>Thu, 30 Jul 2026 09:00:00 GMT</pubDate>
     <category>Calendário</category>
     <description>Levantamos as maratonas de 42K em asfalto no Brasil de agosto de 2026 a junho de 2027: datas, cidades e quanto cada inscrição deve custar.</description>
+  </item>
+  <item>
+    <title>Red Bull 24 Horas passa por 7 cidades em 2026, final em BH</title>
+    <link>https://rhkersul.github.io/well-run-site/blog/red-bull-24-horas-2026-sete-cidades-final-belo-horizonte/</link>
+    <guid isPermaLink="true">https://rhkersul.github.io/well-run-site/blog/red-bull-24-horas-2026-sete-cidades-final-belo-horizonte/</guid>
+    <pubDate>Thu, 30 Jul 2026 09:00:00 GMT</pubDate>
+    <category>Notícias</category>
+    <description>O circuito de revezamento de running crews cresce em 2026 com seletivas em sete cidades e final em Belo Horizonte. Veja o que muda para quem corre em grupo</description>
   </item>
 </channel>
 </rss>
