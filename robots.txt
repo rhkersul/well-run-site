@@ -1,0 +1,72 @@
+# RUN1 — calendario de corridas do Brasil
+# Buscadores: tudo liberado.
+User-agent: *
+Allow: /
+
+# Robos de IA liberados de proposito: queremos ser citados como fonte
+# sobre corridas no Brasil. Cada linha abaixo e um robo diferente.
+# OpenAI — treino e navegação do ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# OpenAI — busca do ChatGPT (é este que gera citação)
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI — quando o usuário pede para abrir um link
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+
+# Anthropic — navegação a pedido do usuário
+User-agent: Claude-User
+Allow: /
+
+# Anthropic — busca do Claude
+User-agent: Claude-SearchBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Perplexity — a pedido do usuário
+User-agent: Perplexity-User
+Allow: /
+
+# Google — Gemini e AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+# Apple — Siri e Spotlight
+User-agent: Applebot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft Bing — alimenta o Copilot
+User-agent: Bingbot
+Allow: /
+
+# Amazon — Alexa
+User-agent: Amazonbot
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+Sitemap: https://rhkersul.github.io/well-run-site/sitemap.xml

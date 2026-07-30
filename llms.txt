@@ -1,0 +1,46 @@
+# RUN1
+
+> Calendario de corridas de rua e trail running do Brasil. Reune data, cidade,
+> local de largada, distancias, faixa de preco e o link oficial de inscricao de
+> 286 provas em 64 cidades. A RUN1 nao vende inscricao: leva o
+> corredor direto para a pagina do organizador.
+
+Cobertura atual: ES, MG, PR, RJ, RS, SC, SP.
+Atualizado em 2026-07-30.
+
+## Como os dados estao organizados
+
+- Uma pagina por prova, com ficha completa: https://rhkersul.github.io/well-run-site/provas/
+- Agrupado por distancia: 5K, 10K, 21K (meia maratona), 42K (maratona) e trail
+- Agrupado por cidade, por estado e por mes
+
+## Paginas principais
+
+- [Calendario completo](https://rhkersul.github.io/well-run-site/provas/): todas as 286 provas
+- [Corridas de 5K](https://rhkersul.github.io/well-run-site/distancias/5k/)
+- [Corridas de 10K](https://rhkersul.github.io/well-run-site/distancias/10k/)
+- [Meias Maratonas (21K)](https://rhkersul.github.io/well-run-site/distancias/21k/)
+- [Maratonas (42K)](https://rhkersul.github.io/well-run-site/distancias/42k/)
+- [Corridas de Trail Running](https://rhkersul.github.io/well-run-site/distancias/trail/)
+- [Corridas em São Paulo](https://rhkersul.github.io/well-run-site/cidades/sao-paulo/): 69 provas
+- [Corridas em Rio de Janeiro](https://rhkersul.github.io/well-run-site/cidades/rio-de-janeiro/): 32 provas
+- [Corridas em Belo Horizonte](https://rhkersul.github.io/well-run-site/cidades/belo-horizonte/): 30 provas
+- [Corridas em Florianópolis](https://rhkersul.github.io/well-run-site/cidades/florianopolis/): 25 provas
+- [Corridas em Curitiba](https://rhkersul.github.io/well-run-site/cidades/curitiba/): 23 provas
+- [Corridas em Porto Alegre](https://rhkersul.github.io/well-run-site/cidades/porto-alegre/): 23 provas
+- [Corridas em Vitória](https://rhkersul.github.io/well-run-site/cidades/vitoria/): 15 provas
+- [Corridas em Campos do Jordão](https://rhkersul.github.io/well-run-site/cidades/campos-do-jordao/): 4 provas
+- [Corridas em Campos dos Goytacazes](https://rhkersul.github.io/well-run-site/cidades/campos-dos-goytacazes/): 3 provas
+- [Corridas em Gramado](https://rhkersul.github.io/well-run-site/cidades/gramado/): 3 provas
+- [Corridas em Domingos Martins](https://rhkersul.github.io/well-run-site/cidades/domingos-martins/): 3 provas
+- [Corridas em Urubici](https://rhkersul.github.io/well-run-site/cidades/urubici/): 2 provas
+
+## App
+
+- [Aplicativo RUN1](https://rhkersul.github.io/well-run-site/app/) — calendario, provas favoritas e temporada do corredor
+- Android (APK): https://expo.dev/artifacts/eas/3XSb4fyUMpyh4SpsIpsfDh19yLRzC84oZi-r5ddvvuI.apk
+
+## Ressalva importante
+
+Datas, precos e prazos sao definidos pelos organizadores e mudam. Cada pagina de
+prova traz o link oficial; ele e a fonte final.
