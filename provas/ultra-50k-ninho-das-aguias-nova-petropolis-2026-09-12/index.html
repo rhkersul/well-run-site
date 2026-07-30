@@ -15,8 +15,9 @@
 <meta property="og:url" content="https://rhkersul.github.io/well-run-site/provas/ultra-50k-ninho-das-aguias-nova-petropolis-2026-09-12/">
 <meta property="og:image" content="https://rhkersul.github.io/well-run-site/media/provas.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<style>:root{--paper:#FAF8F1;--ink:#1E192A;--ink2:#3A3548;--muted:#6E6A76;--line:#E7E2D8;--card:#fff;--accent:#E8552B}
-@media(prefers-color-scheme:dark){:root{--paper:#16131F;--ink:#F3F1F8;--ink2:#D6D2E0;--muted:#918DA0;--line:#2A2536;--card:#1F1B2B;--accent:#F2884F}}
+<link rel="alternate" type="application/rss+xml" title="Blog RUN1" href="https://rhkersul.github.io/well-run-site/blog/feed.xml">
+<style>:root{--paper:#FAF8F1;--ink:#1E192A;--ink2:#3A3548;--muted:#6E6A76;--line:#E7E2D8;--card:#fff;--accent:#E8552B;--accent-soft:#FCE7DF}
+@media(prefers-color-scheme:dark){:root{--paper:#16131F;--ink:#F3F1F8;--ink2:#D6D2E0;--muted:#918DA0;--line:#2A2536;--card:#1F1B2B;--accent:#F2884F;--accent-soft:#33241C}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
@@ -25,14 +26,20 @@ header.top{border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px
 header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
 .brand{font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);font-size:1.1rem}
 .brand b{color:var(--accent)}
+.topnav{display:flex;gap:18px;font-size:.9rem}
+.topnav a{color:var(--muted)}.topnav a:hover{color:var(--ink)}
 nav.bc{font-size:.85rem;color:var(--muted);margin-bottom:18px}
 nav.bc a{color:var(--muted)}
 h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.15;margin:0 0 10px;text-wrap:balance}
 h2{font-size:1.3rem;margin:34px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:1.1rem;margin:26px 0 8px}
 .lede{font-size:1.1rem;color:var(--ink2);margin:0 0 22px}
 table{width:100%;border-collapse:collapse;margin:0 0 24px;font-size:.95rem}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{width:38%;color:var(--muted);font-weight:600}
+th{color:var(--muted);font-weight:600}
+.ficha th{width:38%}
+.tw{overflow-x:auto;margin:0 0 24px}
+.tw table{margin:0}
 .cta{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:13px 24px;border-radius:999px;margin:6px 10px 6px 0}
 .cta:hover{text-decoration:none;opacity:.92}
 .cta--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
@@ -42,18 +49,38 @@ ul.list a{font-weight:600;color:var(--ink)}
 ul.list a:hover{color:var(--accent)}
 ul.list .meta{display:block;font-size:.88rem;color:var(--muted);margin-top:2px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
-.tags a{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 15px;font-size:.9rem;color:var(--ink)}
+.tags a,.tags span{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 15px;font-size:.9rem;color:var(--ink)}
 .tags a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 footer{border-top:1px solid var(--line);margin-top:44px;padding:26px 0 40px;font-size:.88rem;color:var(--muted)}
 footer a{color:var(--muted)}
 .note{font-size:.88rem;color:var(--muted)}
-@media(max-width:520px){th,td{display:block;border:0;padding:2px 0}td{padding-bottom:12px;border-bottom:1px solid var(--line)}th{width:auto}}</style>
+/* --- artigo --- */
+article p{margin:0 0 18px}
+article ul,article ol{margin:0 0 20px;padding-left:22px}
+article li{margin:0 0 7px}
+article blockquote{margin:0 0 22px;padding:2px 0 2px 18px;border-left:3px solid var(--accent);color:var(--ink2);font-style:italic}
+article blockquote p{margin:0}
+article code{background:var(--accent-soft);padding:2px 6px;border-radius:5px;font-size:.9em}
+.postmeta{font-size:.9rem;color:var(--muted);margin:0 0 24px}
+.postmeta .cat{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 26px}
+.box h2,.box h3{margin-top:0;border-top:0;padding-top:0;font-size:1.05rem}
+.fontes{font-size:.9rem}
+.fontes ol{margin:0;padding-left:20px}
+.fontes li{margin:0 0 6px}
+.transp{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:30px}
+@media(max-width:520px){.ficha th,.ficha td{display:block;border:0;padding:2px 0}.ficha td{padding-bottom:12px;border-bottom:1px solid var(--line)}.ficha th{width:auto}.topnav{gap:12px;font-size:.85rem}}</style>
+
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SportsEvent","@id":"https://rhkersul.github.io/well-run-site/provas/ultra-50k-ninho-das-aguias-nova-petropolis-2026-09-12/#event","name":"Ultra 50K Ninho das Águias","startDate":"2026-09-12","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","inLanguage":"pt-BR","url":"https://rhkersul.github.io/well-run-site/provas/ultra-50k-ninho-das-aguias-nova-petropolis-2026-09-12/","description":"6ª edição com 2.244 m de ganho, 2 pontos ITRA e travessias de rio.","sport":"Trail running","location":{"@type":"Place","name":"Parque Ninho das Águias","address":{"@type":"PostalAddress","addressLocality":"Nova Petrópolis","addressRegion":"RS","addressCountry":"BR"}},"organizer":{"@type":"Organization","name":"AUDAX Eventos"},"offers":{"@type":"Offer","url":"https://audax4.com.br/ultra50kninhodasaguias/","priceCurrency":"BRL","price":"150","availability":"https://schema.org/InStock"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"RUN1","item":"https://rhkersul.github.io/well-run-site/"},{"@type":"ListItem","position":2,"name":"Provas","item":"https://rhkersul.github.io/well-run-site/provas/"},{"@type":"ListItem","position":3,"name":"Nova Petrópolis","item":"https://rhkersul.github.io/well-run-site/cidades/nova-petropolis/"},{"@type":"ListItem","position":4,"name":"Ultra 50K Ninho das Águias"}]}]}</script>
 </head>
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="https://rhkersul.github.io/well-run-site/">RUN<b>1</b></a>
+<nav class="topnav">
+<a href="https://rhkersul.github.io/well-run-site/provas/">Provas</a>
+<a href="https://rhkersul.github.io/well-run-site/blog/">Blog</a>
 <a href="https://rhkersul.github.io/well-run-site/app/">Abrir o app</a>
+</nav>
 </div></header>
 <main class="wrap">
 <nav class="bc"><a href="https://rhkersul.github.io/well-run-site/">RUN1</a> › <a href="https://rhkersul.github.io/well-run-site/provas/">Provas</a> › <a href="https://rhkersul.github.io/well-run-site/cidades/nova-petropolis/">Nova Petrópolis</a> › Ultra 50K Ninho das Águias</nav>
@@ -89,6 +116,7 @@ footer a{color:var(--muted)}
 <p><strong>RUN1</strong> — calendário de corridas de rua e trail running do Brasil.
 <a href="https://rhkersul.github.io/well-run-site/">Início</a> ·
 <a href="https://rhkersul.github.io/well-run-site/provas/">Todas as provas</a> ·
+<a href="https://rhkersul.github.io/well-run-site/blog/">Blog</a> ·
 <a href="https://rhkersul.github.io/well-run-site/app/">Abrir o app</a></p>
 <p class="note">Datas, preços e prazos são definidos pelos organizadores e podem mudar.
 Confirme sempre na página oficial da prova antes de se inscrever.</p>

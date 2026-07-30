@@ -15,8 +15,9 @@
 <meta property="og:url" content="https://rhkersul.github.io/well-run-site/distancias/42k/">
 <meta property="og:image" content="https://rhkersul.github.io/well-run-site/media/provas.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<style>:root{--paper:#FAF8F1;--ink:#1E192A;--ink2:#3A3548;--muted:#6E6A76;--line:#E7E2D8;--card:#fff;--accent:#E8552B}
-@media(prefers-color-scheme:dark){:root{--paper:#16131F;--ink:#F3F1F8;--ink2:#D6D2E0;--muted:#918DA0;--line:#2A2536;--card:#1F1B2B;--accent:#F2884F}}
+<link rel="alternate" type="application/rss+xml" title="Blog RUN1" href="https://rhkersul.github.io/well-run-site/blog/feed.xml">
+<style>:root{--paper:#FAF8F1;--ink:#1E192A;--ink2:#3A3548;--muted:#6E6A76;--line:#E7E2D8;--card:#fff;--accent:#E8552B;--accent-soft:#FCE7DF}
+@media(prefers-color-scheme:dark){:root{--paper:#16131F;--ink:#F3F1F8;--ink2:#D6D2E0;--muted:#918DA0;--line:#2A2536;--card:#1F1B2B;--accent:#F2884F;--accent-soft:#33241C}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
@@ -25,14 +26,20 @@ header.top{border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:28px
 header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
 .brand{font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);font-size:1.1rem}
 .brand b{color:var(--accent)}
+.topnav{display:flex;gap:18px;font-size:.9rem}
+.topnav a{color:var(--muted)}.topnav a:hover{color:var(--ink)}
 nav.bc{font-size:.85rem;color:var(--muted);margin-bottom:18px}
 nav.bc a{color:var(--muted)}
 h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.15;margin:0 0 10px;text-wrap:balance}
 h2{font-size:1.3rem;margin:34px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:1.1rem;margin:26px 0 8px}
 .lede{font-size:1.1rem;color:var(--ink2);margin:0 0 22px}
 table{width:100%;border-collapse:collapse;margin:0 0 24px;font-size:.95rem}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{width:38%;color:var(--muted);font-weight:600}
+th{color:var(--muted);font-weight:600}
+.ficha th{width:38%}
+.tw{overflow-x:auto;margin:0 0 24px}
+.tw table{margin:0}
 .cta{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:13px 24px;border-radius:999px;margin:6px 10px 6px 0}
 .cta:hover{text-decoration:none;opacity:.92}
 .cta--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
@@ -42,18 +49,38 @@ ul.list a{font-weight:600;color:var(--ink)}
 ul.list a:hover{color:var(--accent)}
 ul.list .meta{display:block;font-size:.88rem;color:var(--muted);margin-top:2px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
-.tags a{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 15px;font-size:.9rem;color:var(--ink)}
+.tags a,.tags span{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 15px;font-size:.9rem;color:var(--ink)}
 .tags a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 footer{border-top:1px solid var(--line);margin-top:44px;padding:26px 0 40px;font-size:.88rem;color:var(--muted)}
 footer a{color:var(--muted)}
 .note{font-size:.88rem;color:var(--muted)}
-@media(max-width:520px){th,td{display:block;border:0;padding:2px 0}td{padding-bottom:12px;border-bottom:1px solid var(--line)}th{width:auto}}</style>
+/* --- artigo --- */
+article p{margin:0 0 18px}
+article ul,article ol{margin:0 0 20px;padding-left:22px}
+article li{margin:0 0 7px}
+article blockquote{margin:0 0 22px;padding:2px 0 2px 18px;border-left:3px solid var(--accent);color:var(--ink2);font-style:italic}
+article blockquote p{margin:0}
+article code{background:var(--accent-soft);padding:2px 6px;border-radius:5px;font-size:.9em}
+.postmeta{font-size:.9rem;color:var(--muted);margin:0 0 24px}
+.postmeta .cat{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 26px}
+.box h2,.box h3{margin-top:0;border-top:0;padding-top:0;font-size:1.05rem}
+.fontes{font-size:.9rem}
+.fontes ol{margin:0;padding-left:20px}
+.fontes li{margin:0 0 6px}
+.transp{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:30px}
+@media(max-width:520px){.ficha th,.ficha td{display:block;border:0;padding:2px 0}.ficha td{padding-bottom:12px;border-bottom:1px solid var(--line)}.ficha th{width:auto}.topnav{gap:12px;font-size:.85rem}}</style>
+
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ItemList","name":"Maratonas (42K) no Brasil","numberOfItems":44,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://rhkersul.github.io/well-run-site/provas/desafio-das-serras-2-etapa-sao-bento-do-sapucai-2026-08-01/","name":"Desafio das Serras — 2ª Etapa"},{"@type":"ListItem","position":2,"url":"https://rhkersul.github.io/well-run-site/provas/la-mision-brasil-passa-quatro-2026-08-12/","name":"La Misión Brasil"},{"@type":"ListItem","position":3,"url":"https://rhkersul.github.io/well-run-site/provas/maratona-fila-de-revezamento-sao-paulo-2026-08-23/","name":"Maratona Fila de Revezamento"},{"@type":"ListItem","position":4,"url":"https://rhkersul.github.io/well-run-site/provas/maratona-de-vitoria-21k-e-42k-2026-08-30/","name":"Maratona de Vitória — 21K e 42K"},{"@type":"ListItem","position":5,"url":"https://rhkersul.github.io/well-run-site/provas/maratona-internacional-de-floripa-florianopolis-2026-08-30/","name":"Maratona Internacional de Floripa"},{"@type":"ListItem","position":6,"url":"https://rhkersul.github.io/well-run-site/provas/caminhos-de-rosa-ultra-maratona-cordisburgo-2026-09-04/","name":"Caminhos de Rosa Ultra Maratona"},{"@type":"ListItem","position":7,"url":"https://rhkersul.github.io/well-run-site/provas/ultra-trail-paranapiacaba-santo-andre-2026-09-06/","name":"Ultra Trail Paranapiacaba"},{"@type":"ListItem","position":8,"url":"https://rhkersul.github.io/well-run-site/provas/desafio-rota-da-baleia-80k-laguna-2026-09-12/","name":"Desafio Rota da Baleia 80K"},{"@type":"ListItem","position":9,"url":"https://rhkersul.github.io/well-run-site/provas/ultra-50k-ninho-das-aguias-nova-petropolis-2026-09-12/","name":"Ultra 50K Ninho das Águias"},{"@type":"ListItem","position":10,"url":"https://rhkersul.github.io/well-run-site/provas/paraty-brazil-by-utmb-2026-09-17/","name":"Paraty Brazil by UTMB"},{"@type":"ListItem","position":11,"url":"https://rhkersul.github.io/well-run-site/provas/floripa-ultra-trail-run-100k-florianopolis-2026-09-18/","name":"Floripa Ultra Trail Run — 100K"},{"@type":"ListItem","position":12,"url":"https://rhkersul.github.io/well-run-site/provas/floripa-ultra-trail-run-florianopolis-2026-09-19/","name":"Floripa Ultra Trail Run"},{"@type":"ListItem","position":13,"url":"https://rhkersul.github.io/well-run-site/provas/rocky-mountain-games-pico-do-jaragua-sao-paulo-2026-09-19/","name":"Rocky Mountain Games — Pico do Jaraguá"},{"@type":"ListItem","position":14,"url":"https://rhkersul.github.io/well-run-site/provas/serra-do-cabral-ultra-trail-buenopolis-2026-09-19/","name":"Serra do Cabral Ultra Trail"},{"@type":"ListItem","position":15,"url":"https://rhkersul.github.io/well-run-site/provas/ultra-praias-parana-pontal-do-parana-2026-09-26/","name":"Ultra Praias Paraná"},{"@type":"ListItem","position":16,"url":"https://rhkersul.github.io/well-run-site/provas/odisseia-ultra-trail-run-urubici-2026-10-03/","name":"Odisseia Ultra Trail Run"},{"@type":"ListItem","position":17,"url":"https://rhkersul.github.io/well-run-site/provas/x-treme-run-ultra-trail-gramado-2026-10-10/","name":"X-Treme Run Ultra Trail Gramado"},{"@type":"ListItem","position":18,"url":"https://rhkersul.github.io/well-run-site/provas/maratona-de-jurere-5k-e-42k-florianopolis-2026-10-11/","name":"Maratona de Jurerê — 5K e 42K"},{"@type":"ListItem","position":19,"url":"https://rhkersul.github.io/well-run-site/provas/wtr-campos-do-jordao-2026-10-17/","name":"WTR Campos do Jordão"},{"@type":"ListItem","position":20,"url":"https://rhkersul.github.io/well-run-site/provas/indomit-columbia-bombinhas-2026-10-17/","name":"INDOMIT Columbia Bombinhas"},{"@type":"ListItem","position":21,"url":"https://rhkersul.github.io/well-run-site/provas/maratona-pedra-azul-domingos-martins-2026-11-01/","name":"Maratona Pedra Azul"},{"@type":"ListItem","position":22,"url":"https://rhkersul.github.io/well-run-site/provas/ktr-ilhabela-2026-11-07/","name":"KTR Ilhabela"},{"@type":"ListItem","position":23,"url":"https://rhkersul.github.io/well-run-site/provas/audax-trail-tour-tres-coroas-2026-11-07/","name":"Audax Trail Tour Três Coroas"},{"@type":"ListItem","position":24,"url":"https://rhkersul.github.io/well-run-site/provas/rocky-mountain-games-campos-do-jordao-2026-11-14/","name":"Rocky Mountain Games — Campos do Jordão"},{"@type":"ListItem","position":25,"url":"https://rhkersul.github.io/well-run-site/provas/mons-ultra-trail-nova-trento-2026-11-14/","name":"Mons Ultra Trail Nova Trento"},{"@type":"ListItem","position":26,"url":"https://rhkersul.github.io/well-run-site/provas/santander-maratona-de-curitiba-2026-11-15/","name":"Santander Maratona de Curitiba"},{"@type":"ListItem","position":27,"url":"https://rhkersul.github.io/well-run-site/provas/xterra-ilhabela-stage-run-80k-2026-11-20/","name":"XTERRA Ilhabela — Stage Run 80K"},{"@type":"ListItem","position":28,"url":"https://rhkersul.github.io/well-run-site/provas/extremo-sul-ultramarathon-chui-2026-11-20/","name":"Extremo Sul Ultramarathon"},{"@type":"ListItem","position":29,"url":"https://rhkersul.github.io/well-run-site/provas/wtr-serra-do-mar-petropolis-2026-11-21/","name":"WTR Serra do Mar"},{"@type":"ListItem","position":30,"url":"https://rhkersul.github.io/well-run-site/provas/insanity-mountain-forno-grande-castelo-2026-11-27/","name":"Insanity Mountain Forno Grande"},{"@type":"ListItem","position":31,"url":"https://rhkersul.github.io/well-run-site/provas/ultra-maratona-dos-campos-gerais-ponta-grossa-2026-12-05/","name":"Ultra Maratona dos Campos Gerais"},{"@type":"ListItem","position":32,"url":"https://rhkersul.github.io/well-run-site/provas/the-hill-race-quatro-barras-2027-02-28/","name":"The Hill Race"},{"@type":"ListItem","position":33,"url":"https://rhkersul.github.io/well-run-site/provas/insanity-mountain-pico-da-bandeira-dores-do-rio-preto-2027-03-06/","name":"Insanity Mountain Pico da Bandeira"},{"@type":"ListItem","position":34,"url":"https://rhkersul.github.io/well-run-site/provas/audax-trail-tour-riozinho-2027-03-27/","name":"Audax Trail Tour Riozinho"},{"@type":"ListItem","position":35,"url":"https://rhkersul.github.io/well-run-site/provas/ktr-campos-do-jordao-2027-04-09/","name":"KTR Campos do Jordão"},{"@type":"ListItem","position":36,"url":"https://rhkersul.github.io/well-run-site/provas/31-maratona-internacional-de-sao-paulo-2027-04-11/","name":"31ª Maratona Internacional de São Paulo"},{"@type":"ListItem","position":37,"url":"https://rhkersul.github.io/well-run-site/provas/expedition-jaraguasky-jaragua-do-sul-2027-04-17/","name":"Expedition JaraguáSky"},{"@type":"ListItem","position":38,"url":"https://rhkersul.github.io/well-run-site/provas/mons-ultra-trail-urubici-2027-05-29/","name":"Mons Ultra Trail Urubici"},{"@type":"ListItem","position":39,"url":"https://rhkersul.github.io/well-run-site/provas/maratona-do-rio-2027-maratona-rio-de-janeiro-2027-05-30/","name":"Maratona do Rio 2027 — Maratona"},{"@type":"ListItem","position":40,"url":"https://rhkersul.github.io/well-run-site/provas/42-maratona-internacional-de-porto-alegre-2027-06-06/","name":"42ª Maratona Internacional de Porto Alegre"},{"@type":"ListItem","position":41,"url":"https://rhkersul.github.io/well-run-site/provas/wtr-agulhas-negras-itatiaia-2027-06-26/","name":"WTR Agulhas Negras"},{"@type":"ListItem","position":42,"url":"https://rhkersul.github.io/well-run-site/provas/uprise-brasil-mega-maratona-domingos-martins-2027-07-03/","name":"UPRISE Brasil Mega Maratona"},{"@type":"ListItem","position":43,"url":"https://rhkersul.github.io/well-run-site/provas/ultramaratona-dos-perdidos-tijucas-do-sul-2027-07-17/","name":"Ultramaratona dos Perdidos"},{"@type":"ListItem","position":44,"url":"https://rhkersul.github.io/well-run-site/provas/x-treme-run-ultra-trail-gramado-2027-10-09/","name":"X-Treme Run Ultra Trail Gramado"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"RUN1","item":"https://rhkersul.github.io/well-run-site/"},{"@type":"ListItem","position":2,"name":"Provas","item":"https://rhkersul.github.io/well-run-site/provas/"},{"@type":"ListItem","position":3,"name":"Maratonas (42K)"}]}]}</script>
 </head>
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="https://rhkersul.github.io/well-run-site/">RUN<b>1</b></a>
+<nav class="topnav">
+<a href="https://rhkersul.github.io/well-run-site/provas/">Provas</a>
+<a href="https://rhkersul.github.io/well-run-site/blog/">Blog</a>
 <a href="https://rhkersul.github.io/well-run-site/app/">Abrir o app</a>
+</nav>
 </div></header>
 <main class="wrap">
 <nav class="bc"><a href="https://rhkersul.github.io/well-run-site/">RUN1</a> › <a href="https://rhkersul.github.io/well-run-site/provas/">Provas</a> › Maratonas (42K)</nav>
@@ -69,6 +96,7 @@ footer a{color:var(--muted)}
 <p><strong>RUN1</strong> — calendário de corridas de rua e trail running do Brasil.
 <a href="https://rhkersul.github.io/well-run-site/">Início</a> ·
 <a href="https://rhkersul.github.io/well-run-site/provas/">Todas as provas</a> ·
+<a href="https://rhkersul.github.io/well-run-site/blog/">Blog</a> ·
 <a href="https://rhkersul.github.io/well-run-site/app/">Abrir o app</a></p>
 <p class="note">Datas, preços e prazos são definidos pelos organizadores e podem mudar.
 Confirme sempre na página oficial da prova antes de se inscrever.</p>

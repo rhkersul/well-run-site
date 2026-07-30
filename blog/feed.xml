@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Blog RUN1 — corrida de rua e trail no Brasil</title>
+  <link>https://rhkersul.github.io/well-run-site/blog/</link>
+  <atom:link href="https://rhkersul.github.io/well-run-site/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Notícias, calendário e guias de corrida de rua e trail running no Brasil.</description>
+  <language>pt-BR</language>
+  <lastBuildDate>Thu, 30 Jul 2026 12:11:58 GMT</lastBuildDate>
+  <item>
+    <title>As 8 maratonas de asfalto no calendário brasileiro</title>
+    <link>https://rhkersul.github.io/well-run-site/blog/maratonas-asfalto-brasil-calendario/</link>
+    <guid isPermaLink="true">https://rhkersul.github.io/well-run-site/blog/maratonas-asfalto-brasil-calendario/</guid>
+    <pubDate>Thu, 30 Jul 2026 09:00:00 GMT</pubDate>
+    <category>Calendário</category>
+    <description>Levantamos as maratonas de 42K em asfalto no Brasil de agosto de 2026 a junho de 2027: datas, cidades e quanto cada inscrição deve custar.</description>
+  </item>
+</channel>
+</rss>
