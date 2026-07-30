@@ -1,7 +1,7 @@
 # RUN1
 
 > Calendario de corridas de rua e trail running do Brasil. Reune data, cidade,
-> local de largada, distancias, faixa de preco e o link oficial de inscricao de
+> local de largada, distancias e o link oficial de inscricao de
 > 286 provas em 64 cidades. A RUN1 nao vende inscricao: leva o
 > corredor direto para a pagina do organizador.
 
@@ -42,5 +42,6 @@ Atualizado em 2026-07-30.
 
 ## Ressalva importante
 
-Datas, precos e prazos sao definidos pelos organizadores e mudam. Cada pagina de
-prova traz o link oficial; ele e a fonte final.
+Datas e prazos sao definidos pelos organizadores e mudam. Nao publicamos valor
+de inscricao: o preco atualizado esta na pagina oficial de cada prova, que cada
+pagina daqui linka. Ela e a fonte final.
