@@ -6,7 +6,23 @@
   <atom:link href="https://rhkersul.github.io/well-run-site/blog/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Notícias, calendário e guias de corrida de rua e trail running no Brasil.</description>
   <language>pt-BR</language>
-  <lastBuildDate>Sun, 02 Aug 2026 13:46:44 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 02 Aug 2026 14:03:05 GMT</lastBuildDate>
+  <item>
+    <title>42K no calendario: 43 provas e pico em novembro de 2026</title>
+    <link>https://rhkersul.github.io/well-run-site/blog/42k-calendario-43-provas-pico-novembro-2026/</link>
+    <guid isPermaLink="true">https://rhkersul.github.io/well-run-site/blog/42k-calendario-43-provas-pico-novembro-2026/</guid>
+    <pubDate>Sat, 01 Aug 2026 09:00:00 GMT</pubDate>
+    <category>Calendário</category>
+    <description>Panorama da maratona no calendario RUN1: 43 provas de 42K e ultras, com agosto puxando a fila e novembro concentrando o maior numero de datas.</description>
+  </item>
+  <item>
+    <title>Corridas em Gramado: 3 provas de trail no calendário</title>
+    <link>https://rhkersul.github.io/well-run-site/blog/corridas-gramado-calendario-trail/</link>
+    <guid isPermaLink="true">https://rhkersul.github.io/well-run-site/blog/corridas-gramado-calendario-trail/</guid>
+    <pubDate>Fri, 31 Jul 2026 09:00:00 GMT</pubDate>
+    <category>Calendário</category>
+    <description>Gramado tem 3 provas no nosso calendário, todas em trail: o X-Treme Run Ultra Trail em outubro de 2026 e 2027 e a Volta ao Lago Negro em março.</description>
+  </item>
   <item>
     <title>As 8 maratonas de asfalto no calendário brasileiro</title>
     <link>https://rhkersul.github.io/well-run-site/blog/maratonas-asfalto-brasil-calendario/</link>
