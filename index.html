@@ -235,6 +235,50 @@
     .filtros__rot { min-width: 100%; }
   }
 
+  /* CATEGORIAS MACRO — blocos de imagem, sem card nem sombra. */
+  .cats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 44px auto 0; }
+  .cat {
+    position: relative; display: block; overflow: hidden;
+    aspect-ratio: 4 / 5; background: var(--ink);
+  }
+  .cat__img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .cat:hover .cat__img { transform: scale(1.04); }
+  .cat::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,12,.78) 0%, rgba(10,10,12,.22) 46%, rgba(10,10,12,0) 72%);
+  }
+  .cat__nome {
+    position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 1;
+    color: #FFF; font-size: clamp(1.1rem, 3.4vw, 1.9rem); line-height: 1;
+  }
+  /*
+   * Um filtro POR IMAGEM. Grade única não servia aqui: na origem estas capas
+   * variam cinco vezes em saturação (0,12 a 0,59) e vão de 69 a 180 de
+   * luminância — a mesma grade deixava umas chapadas e outras estourando.
+   *
+   * Os valores saíram de simulação: para cada foto, procurei o par
+   * saturate/brightness que aproxima o alvo (saturação 0,22, luminância 82),
+   * com a saturação LIMITADA a 1,3. Sem esse teto o cálculo pedia saturate(2,2)
+   * em duas delas — o número fechava e a foto ficava artificial, com pele e
+   * camiseta estourando. Métrica é guia, não objetivo.
+   *
+   * Resultado medido: saturação 0,12–0,21 e luminância 70–84 (era 0,12–0,59 e
+   * 69–180). "Provas" e "maratonas" ficam mais lavadas porque as fotos são
+   * planas na origem — preferi assim a inventar cor que não existe.
+   */
+  .cat__img--provas    { filter: saturate(1.25) brightness(.70) contrast(1.05); }
+  .cat__img--maratonas { filter: saturate(1.25) brightness(.75) contrast(1.05); }
+  .cat__img--meias     { filter: saturate(1.25) brightness(.45) contrast(1.05); }
+  .cat__img--trail     { filter: saturate(.90)  brightness(.75) contrast(1.05); }
+
+  @media (min-width: 860px) {
+    .cats { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .cat { aspect-ratio: 3 / 4; }
+  }
+
   /* MARQUEE */
   .marquee { margin: 40px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; padding: 14px 0; }
   .marquee__track { display: inline-flex; white-space: nowrap; will-change: transform; animation: scroll 48s linear infinite; }
@@ -378,7 +422,35 @@
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
+<!--
+  CATEGORIAS MACRO, com imagem.
+
+  Substitui a faixa de texto rolante. A faixa listava 16 nomes de corrida — a
+  mesma informação da lista logo abaixo — e depois virou uma lista de 11 itens,
+  que era demais. Aqui ficam só as macro, cada uma com foto e destino real.
+
+  O filtro de cada imagem é PRÓPRIO, calculado por simulação até o conjunto
+  fechar na mesma faixa. Grade única não servia: as capas variavam cinco vezes
+  em saturação na origem. Ver docs/FOTOGRAFIA.md.
+-->
+<section class="wrap cats" aria-label="Categorias">
+  <a class="cat" href="https://rhkersul.github.io/well-run-site/provas/">
+    <img class="cat__img cat__img--provas" src="https://rhkersul.github.io/well-run-site/media/provas.jpg" alt="" loading="lazy" decoding="async">
+    <span class="cat__nome disp">Corridas de rua</span>
+  </a>
+  <a class="cat" href="https://rhkersul.github.io/well-run-site/distancias/42k/">
+    <img class="cat__img cat__img--maratonas" src="https://rhkersul.github.io/well-run-site/media/maratonas.jpg" alt="" loading="lazy" decoding="async">
+    <span class="cat__nome disp">Maratonas</span>
+  </a>
+  <a class="cat" href="https://rhkersul.github.io/well-run-site/distancias/21k/">
+    <img class="cat__img cat__img--meias" src="https://rhkersul.github.io/well-run-site/media/meias.jpg" alt="" loading="lazy" decoding="async">
+    <span class="cat__nome disp">Meias maratonas</span>
+  </a>
+  <a class="cat" href="https://rhkersul.github.io/well-run-site/distancias/trail/">
+    <img class="cat__img cat__img--trail" src="https://rhkersul.github.io/well-run-site/media/trail.jpg" alt="" loading="lazy" decoding="async">
+    <span class="cat__nome disp">Trail running</span>
+  </a>
+</section>
 
 <section class="wrap" style="padding-top:40px">
   <div class="stats reveal" id="stats"></div>
@@ -514,21 +586,9 @@
   var upcoming = RACES.filter(function(r){ return daysUntil(r.d) >= 0; })
                       .sort(function(a,b){ return a.d < b.d ? -1 : 1; });
 
-  // Faixa rolante: o que o app COBRE, não nomes de prova.
-  //
-  // Antes rolavam 16 nomes de corrida — informação que a lista logo abaixo já
-  // dá, e que não conta nada de novo. O visitante saía da home sem saber que o
-  // app tem trail, Majors, assessorias, crews e review de tênis. A faixa é o
-  // lugar certo para isso: é a única coisa que ele lê inteira sem esforço.
-  (function(){
-    var cobre = [
-      "Corridas de rua", "Trail running", "Maratonas", "Meias maratonas",
-      "Marathon Majors", "SuperHalfs", "Mega Finisher",
-      "Assessorias", "Run crews", "Review de tênis", "Suplementos"
-    ];
-    var html = cobre.map(function(n){ return "<span>"+n+"</span>"; }).join("");
-    document.getElementById("marquee").innerHTML = html + html;
-  })();
+  // A faixa rolante saiu. Rolavam 16 nomes de corrida — a mesma informação da
+  // lista logo abaixo. Virou a grade de categorias macro com imagem, que é
+  // HTML puro: não precisa de JavaScript e o robô de busca enxerga.
 
   // stats
   (function(){
