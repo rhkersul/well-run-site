@@ -30,23 +30,48 @@
     font-display: swap;
   }
 
+  /*
+   * PALETA — monocromática, com a cor vindo da fotografia.
+   *
+   * O creme #FAF8F1 saiu e entrou um cinza neutro. Medi a referência (CONTRE):
+   * fundo rgb(225,225,225), texto rgb(43,43,43), e NENHUMA cor de destaque na
+   * página — só três cinzas, branco e preto. A cor entra pelas fotos.
+   *
+   * Aqui tínhamos DUAS cores de marca competindo (laranja e verde). Duas cores
+   * de destaque dividem a atenção e é o que mais tira o ar de premium. O verde
+   * virou cinza; o laranja ficou, mas com um único trabalho: chamada para ação.
+   */
   :root {
-    --paper: #FAF8F1;
-    --ink: #1E192A;
-    --ink-2: #3A3548;
-    --muted: #6E6A76;
-    --line: #E7E2D8;
+    --paper: #E4E3E1;
+    --ink: #232224;
+    --ink-2: #4A484D;
+    --muted: #7C7A80;
+    --line: #CFCECC;
     --card: #FFFFFF;
-    --inv-bg: #1E192A;
-    --inv-fg: #FAF8F1;
+    --inv-bg: #16151A;
+    --inv-fg: #EFEEEC;
     --accent: #E8552B;
     --accent-soft: #FCE7DF;
-    --positive: #5E8A57;
-    --positive-soft: #E9F0E7;
-    --yellow: #F5D93D;
-    --yellow-soft: #FBF3C9;
-    --blue-soft: #DEE8FA;
-    --pink-soft: #F7E4EE;
+    /*
+     * TRATAMENTO DA FOTOGRAFIA — um filtro só, em todas as imagens.
+     *
+     * Medi as capas atuais: saturação de 0,12 a 0,59 (cinco vezes de variação)
+     * e luminância de 69 a 180. A referência vive numa faixa estreita: 0,20 a
+     * 0,27 de saturação, 44 a 97 de luminância. Essa faixa não é sorte na
+     * escolha das fotos — é tratamento aplicado.
+     *
+     * Fazendo no CSS, e não nos arquivos, o conjunto continua coerente para
+     * qualquer foto que entrar depois, sem depender de eu lembrar de editar.
+     */
+    --grade: saturate(.72) brightness(.82) contrast(1.06);
+    /* O verde de marca virou cinza: duas cores de destaque competindo é o que
+       mais tira o ar de premium. Sobra o laranja, com um trabalho só — ação. */
+    --positive: #4A484D;
+    --positive-soft: #D8D7D5;
+    --yellow: #4A484D;
+    --yellow-soft: #D8D7D5;
+    --blue-soft: #D8D7D5;
+    --pink-soft: #D8D7D5;
     --maxw: 1120px;
     --disp: "WRDisplay", "Arial Narrow", "Haettenschweiler", Impact, sans-serif;
     --body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
@@ -55,26 +80,30 @@
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper: #16131F; --ink: #F3F1F8; --ink-2: #D6D2E0; --muted: #918DA0;
-      --line: #2A2536; --card: #1F1B2B; --inv-bg: #0F0C17; --inv-fg: #F3F1F8;
-      --accent: #F2884F; --accent-soft: #33241C; --positive: #8FB98A; --positive-soft: #1F2A1C;
-      --yellow-soft: #2E2A16; --blue-soft: #1B2338; --pink-soft: #2E1F2A;
+      --paper: #16151A; --ink: #EFEEEC; --ink-2: #C6C4C8; --muted: #8B898F;
+      --line: #2B2A2F; --card: #1E1D22; --inv-bg: #0D0C10; --inv-fg: #EFEEEC;
+      --accent: #F2884F; --accent-soft: #33241C; --positive: #C6C4C8; --positive-soft: #2B2A2F;
+      --yellow-soft: #2B2A2F; --blue-soft: #2B2A2F; --pink-soft: #2B2A2F;
       --shadow: 0 18px 50px -28px rgba(0,0,0,.7); --shadow-sm: 0 8px 24px -16px rgba(0,0,0,.6);
+      --grade: saturate(.72) brightness(.9) contrast(1.04);
     }
   }
   :root[data-theme="dark"] {
-    --paper: #16131F; --ink: #F3F1F8; --ink-2: #D6D2E0; --muted: #918DA0;
-    --line: #2A2536; --card: #1F1B2B; --inv-bg: #0F0C17; --inv-fg: #F3F1F8;
-    --accent: #F2884F; --accent-soft: #33241C; --positive: #8FB98A; --positive-soft: #1F2A1C;
-    --yellow-soft: #2E2A16; --blue-soft: #1B2338; --pink-soft: #2E1F2A;
+    --paper: #16151A; --ink: #EFEEEC; --ink-2: #C6C4C8; --muted: #8B898F;
+    --line: #2B2A2F; --card: #1E1D22; --inv-bg: #0D0C10; --inv-fg: #EFEEEC;
+    --accent: #F2884F; --accent-soft: #33241C; --positive: #C6C4C8; --positive-soft: #2B2A2F;
+    --yellow-soft: #2B2A2F; --blue-soft: #2B2A2F; --pink-soft: #2B2A2F;
     --shadow: 0 18px 50px -28px rgba(0,0,0,.7); --shadow-sm: 0 8px 24px -16px rgba(0,0,0,.6);
+    /* No escuro a foto já tem contraste contra o fundo: escurece menos. */
+    --grade: saturate(.72) brightness(.9) contrast(1.04);
   }
   :root[data-theme="light"] {
-    --paper: #FAF8F1; --ink: #1E192A; --ink-2: #3A3548; --muted: #6E6A76;
-    --line: #E7E2D8; --card: #FFFFFF; --inv-bg: #1E192A; --inv-fg: #FAF8F1;
-    --accent: #E8552B; --accent-soft: #FCE7DF; --positive: #5E8A57; --positive-soft: #E9F0E7;
-    --yellow-soft: #FBF3C9; --blue-soft: #DEE8FA; --pink-soft: #F7E4EE;
-    --shadow: 0 18px 50px -28px rgba(30,25,42,.42); --shadow-sm: 0 8px 24px -16px rgba(30,25,42,.4);
+    --paper: #E4E3E1; --ink: #232224; --ink-2: #4A484D; --muted: #7C7A80;
+    --line: #CFCECC; --card: #FFFFFF; --inv-bg: #16151A; --inv-fg: #EFEEEC;
+    --accent: #E8552B; --accent-soft: #FCE7DF; --positive: #4A484D; --positive-soft: #D8D7D5;
+    --yellow-soft: #D8D7D5; --blue-soft: #D8D7D5; --pink-soft: #D8D7D5;
+    --shadow: 0 18px 50px -28px rgba(20,20,22,.4); --shadow-sm: 0 8px 24px -16px rgba(20,20,22,.38);
+    --grade: saturate(.72) brightness(.82) contrast(1.06);
   }
 
   * { box-sizing: border-box; }
@@ -88,7 +117,7 @@
   a { color: inherit; text-decoration: none; }
   .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
   .disp { font-family: var(--disp); font-weight: 400; text-transform: uppercase; line-height: .9; letter-spacing: .01em; }
-  .eyebrow { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .eyebrow { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
   .tnum { font-variant-numeric: tabular-nums; }
 
   /* NAV */
@@ -127,7 +156,7 @@
     transition: transform .15s ease, box-shadow .15s ease;
   }
   .post:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .post__cat { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .post__cat { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
   .post__title { font-size: 1.18rem; font-weight: 700; line-height: 1.3; margin: 8px 0 6px; color: var(--ink); text-wrap: balance; }
   .post__desc { font-size: .95rem; color: var(--ink-2); margin: 0; }
   .post__meta { display: block; font-size: .82rem; color: var(--muted); margin-top: 12px; font-variant-numeric: tabular-nums; }
@@ -145,10 +174,39 @@
   .btn--sm { padding: 10px 18px; font-size: .86rem; }
 
   /* HERO */
-  .hero { padding: 54px 0 8px; }
-  .hero h1 { font-size: clamp(3rem, 13vw, 8.5rem); margin: 14px 0 0; text-wrap: balance; }
-  .hero__sub { max-width: 46ch; margin: 22px 0 26px; color: var(--ink-2); font-size: 1.12rem; }
+  /* HERO fotográfico, sangrando de borda a borda. */
+  .hero {
+    position: relative; isolation: isolate;
+    min-height: min(88vh, 780px);
+    display: flex; align-items: flex-end;
+    padding: 0 0 clamp(40px, 7vw, 84px);
+    margin-top: -1px; /* encosta na nav, sem fresta */
+    overflow: hidden;
+  }
+  .hero__img {
+    position: absolute; inset: 0; z-index: -2;
+    width: 100%; height: 100%; object-fit: cover; object-position: center 42%;
+    filter: var(--grade);
+  }
+  /* Véu para o texto ter contraste sem depender da foto. Mais denso embaixo,
+     que é onde o texto fica — no topo a imagem respira. */
+  .hero__veu {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to top,
+      rgba(10,10,12,.88) 0%, rgba(10,10,12,.62) 34%, rgba(10,10,12,.22) 64%, rgba(10,10,12,.30) 100%);
+  }
+  .hero__conteudo { color: #F5F4F2; }
+  .hero .eyebrow { color: #F5F4F2; opacity: .82; }
+  .hero h1 { font-size: clamp(2.6rem, 9vw, 6.4rem); margin: 14px 0 0; text-wrap: balance; color: #FFF; }
+  .hero__sub { max-width: 46ch; margin: 20px 0 28px; color: rgba(245,244,242,.86); font-size: 1.08rem; }
   .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  /* Sobre foto o botão fantasma precisa de borda clara para existir. */
+  .hero .btn--ghost { border-color: rgba(255,255,255,.55); color: #FFF; background: transparent; }
+  .hero .btn--ghost:hover { background: rgba(255,255,255,.12); }
+
+  /* Toda fotografia do site recebe o MESMO tratamento. É o que faz o conjunto
+     parecer uma coleção, e não imagens avulsas. */
+  .foto { filter: var(--grade); }
   .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .pill {
     display: inline-flex; align-items: center; gap: 8px;
@@ -192,8 +250,8 @@
   .race:last-child { border-bottom: 0; }
   .race:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
   .race__date { grid-area: date; text-align: center; background: var(--accent-soft); border-radius: 14px; padding: 8px 0; }
-  .race__day { font-family: var(--disp); font-size: 1.9rem; line-height: .82; color: var(--accent); }
-  .race__mon { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .race__day { font-family: var(--disp); font-size: 1.9rem; line-height: .82; color: var(--ink); }
+  .race__mon { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
   .race__main { grid-area: name; min-width: 0; }
   .race__name { font-weight: 700; font-size: 1.1rem; letter-spacing: -.01em; }
   .race__info { color: var(--muted); font-size: .85rem; margin-top: 3px; }
@@ -275,19 +333,29 @@
 </nav>
 
 <a id="top"></a>
-<header class="hero wrap">
-  <p class="eyebrow reveal">Sul e Sudeste · Calendário de corridas</p>
-  <h1 class="disp reveal">Toda corrida do Sul e Sudeste, em um lugar só</h1>
-  <p class="hero__sub reveal">Datas, distâncias, local de largada e link direto de inscrição das corridas de rua de sete capitais — sem garimpar em mil sites.</p>
-  <div class="hero__cta reveal">
-    <a class="btn" href="#calendario">Ver o calendário</a>
-    <a class="btn btn--ghost" href="#baixar">Baixar o app</a>
-  </div>
-  <div class="pills reveal">
-    <span class="pill"><span class="e">📅</span> Calendário completo</span>
-    <span class="pill"><span class="e">🔖</span> Favoritos</span>
-    <span class="pill"><span class="e">⏱️</span> Lembretes</span>
-    <span class="pill"><span class="e">🎟️</span> Cupons</span>
+<!--
+  HERO FOTOGRÁFICO.
+
+  A home tinha ZERO imagens em 6,9 telas de rolagem — era a maior distância
+  entre o nosso site e a referência, que é conduzida por fotografia. Aqui a foto
+  ocupa a tela inteira e o texto vive sobre ela.
+
+  A imagem é de maratona no Rio, com licença Pexels (uso comercial livre, sem
+  exigência de atribuição). Ver docs/FOTOGRAFIA.md.
+-->
+<header class="hero">
+  <img class="hero__img" src="/well-run-site/media/foto/hero-rio-maratona.jpg"
+       alt="Corredores durante a maratona do Rio de Janeiro, em rua da cidade"
+       width="1600" height="1067" fetchpriority="high" decoding="async">
+  <div class="hero__veu" aria-hidden="true"></div>
+  <div class="hero__conteudo wrap">
+    <p class="eyebrow reveal">Sul e Sudeste · Calendário de corridas</p>
+    <h1 class="disp reveal">Toda corrida do Sul e Sudeste, em um lugar só</h1>
+    <p class="hero__sub reveal">Datas, distâncias, local de largada e link direto de inscrição das corridas de rua de sete capitais — sem garimpar em mil sites.</p>
+    <div class="hero__cta reveal">
+      <a class="btn" href="#calendario">Ver o calendário</a>
+      <a class="btn btn--ghost" href="#baixar">Baixar o app</a>
+    </div>
   </div>
 </header>
 
