@@ -19,6 +19,24 @@
 <meta name="twitter:title" content="RUN1 — Calendário de Corridas de Rua e Trail no Brasil">
 <meta name="twitter:description" content="Datas, distâncias e link direto de inscrição de 427 corridas no Brasil.">
 <meta name="twitter:image" content="https://rhkersul.github.io/well-run-site/media/provas.jpg">
+<!--
+  Tipografia do corpo: Inter.
+
+  Antes era a pilha do sistema (-apple-system…), que é a fonte padrão do
+  aparelho — a cara de "não escolhido". Inter é a MESMA fonte do app, então o
+  site e o app passam a falar igual.
+
+  Vem do Google Fonts e não embutida em base64 como a Anton: o TTF da Inter tem
+  342 KB por peso, e dois pesos triplicariam a página. Pelo CDN vem o subconjunto
+  latino em woff2, ~20 KB, e ainda com chance de já estar no cache do visitante.
+
+  `preconnect` abre a conexão antes de o CSS pedir a fonte, e `display=swap`
+  mostra o texto na hora, com a fonte do sistema, trocando quando a Inter chega —
+  sem tela em branco.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://rhkersul.github.io/well-run-site/#org","name":"RUN1","url":"https://rhkersul.github.io/well-run-site/","logo":"https://rhkersul.github.io/well-run-site/media/provas.jpg","description":"RUN1 reúne o calendário de corridas de rua e trail running do Brasil, com datas, distâncias, preços e link direto de inscrição.","areaServed":{"@type":"Country","name":"Brasil"}},{"@type":"WebSite","@id":"https://rhkersul.github.io/well-run-site/#site","url":"https://rhkersul.github.io/well-run-site/","name":"RUN1","inLanguage":"pt-BR","publisher":{"@id":"https://rhkersul.github.io/well-run-site/#org"},"description":"Calendário de 427 corridas de rua e trail no Brasil, em 64 cidades."},{"@type":"MobileApplication","@id":"https://rhkersul.github.io/well-run-site/#app","name":"RUN1","operatingSystem":"Android","applicationCategory":"SportsApplication","inLanguage":"pt-BR","url":"https://rhkersul.github.io/well-run-site/app/","installUrl":"https://expo.dev/artifacts/eas/3XSb4fyUMpyh4SpsIpsfDh19yLRzC84oZi-r5ddvvuI.apk","publisher":{"@id":"https://rhkersul.github.io/well-run-site/#org"},"offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},"description":"Calendário de corridas do Brasil: favorite provas, monte sua temporada e vá direto para a inscrição oficial.","featureList":["Calendário de corridas de rua e trail","Filtro por distância, cidade, estado e circuito","Link direto para a inscrição oficial","Provas favoritas na sua temporada","Reviews de tênis e suplementos"]}]}</script>
 </head>
 <body>
@@ -74,7 +92,7 @@
     --pink-soft: #D8D7D5;
     --maxw: 1120px;
     --disp: "WRDisplay", "Arial Narrow", "Haettenschweiler", Impact, sans-serif;
-    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --shadow: 0 18px 50px -28px rgba(30,25,42,.42);
     --shadow-sm: 0 8px 24px -16px rgba(30,25,42,.4);
   }
