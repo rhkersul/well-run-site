@@ -216,6 +216,25 @@
   }
   .pill span.e { font-size: 1.05rem; }
 
+  /* FILTROS — bloco próprio, abaixo do título. */
+  .section__head--solo { display: block; margin-bottom: 22px; }
+  .filtros {
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 18px 0 22px; margin-bottom: 8px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .filtros__linha { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .filtros__rot {
+    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); font-weight: 700; min-width: 68px;
+  }
+  @media (max-width: 640px) {
+    /* No celular o rótulo vira linha própria: ao lado, sobra pouco para os
+       chips e eles quebram em duas fileiras desalinhadas. */
+    .filtros__linha { gap: 8px; }
+    .filtros__rot { min-width: 100%; }
+  }
+
   /* MARQUEE */
   .marquee { margin: 40px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; padding: 14px 0; }
   .marquee__track { display: inline-flex; white-space: nowrap; will-change: transform; animation: scroll 48s linear infinite; }
@@ -366,20 +385,33 @@
 </section>
 
 <section class="section wrap" id="calendario">
-  <div class="section__head">
+  <!-- O título fica sozinho. Antes os filtros de distância dividiam a linha com
+       ele, e as UFs vinham soltas numa terceira linha: o cabeçalho ficava
+       apertado e os dois filtros pareciam coisas diferentes. Agora o título
+       respira e os filtros formam UM bloco só, abaixo. -->
+  <div class="section__head section__head--solo">
     <div>
       <p class="eyebrow">Lista de largada</p>
       <h2 class="disp">Próximas corridas</h2>
     </div>
-    <div class="filters" id="filters" role="group" aria-label="Filtrar por distância">
-      <button class="chip" data-k="all" aria-pressed="true">Todas</button>
-      <button class="chip" data-k="5k" aria-pressed="false">5K</button>
-      <button class="chip" data-k="10k" aria-pressed="false">10K</button>
-      <button class="chip" data-k="21k" aria-pressed="false">21K</button>
-      <button class="chip" data-k="42k" aria-pressed="false">42K</button>
+  </div>
+
+  <div class="filtros">
+    <div class="filtros__linha">
+      <span class="filtros__rot">Distância</span>
+      <div class="filters" id="filters" role="group" aria-label="Filtrar por distância">
+        <button class="chip" data-k="all" aria-pressed="true">Todas</button>
+        <button class="chip" data-k="5k" aria-pressed="false">5K</button>
+        <button class="chip" data-k="10k" aria-pressed="false">10K</button>
+        <button class="chip" data-k="21k" aria-pressed="false">21K</button>
+        <button class="chip" data-k="42k" aria-pressed="false">42K</button>
+      </div>
+    </div>
+    <div class="filtros__linha">
+      <span class="filtros__rot">Estado</span>
+      <div class="filters filters--uf" id="ufs" role="group" aria-label="Filtrar por estado"></div>
     </div>
   </div>
-  <div class="filters filters--uf" id="ufs" role="group" aria-label="Filtrar por estado"></div>
 
   <!-- Atalhos para o calendário completo de cada distância. São links de
        verdade, em HTML: os chips acima só filtram esta lista por JavaScript, e
@@ -482,11 +514,19 @@
   var upcoming = RACES.filter(function(r){ return daysUntil(r.d) >= 0; })
                       .sort(function(a,b){ return a.d < b.d ? -1 : 1; });
 
-  // marquee
+  // Faixa rolante: o que o app COBRE, não nomes de prova.
+  //
+  // Antes rolavam 16 nomes de corrida — informação que a lista logo abaixo já
+  // dá, e que não conta nada de novo. O visitante saía da home sem saber que o
+  // app tem trail, Majors, assessorias, crews e review de tênis. A faixa é o
+  // lugar certo para isso: é a única coisa que ele lê inteira sem esforço.
   (function(){
-    var names = upcoming.slice(0, 16).map(function(r){ return r.n; });
-    if (names.length < 6) names = names.concat(names);
-    var html = names.map(function(n){ return "<span>"+n+"</span>"; }).join("");
+    var cobre = [
+      "Corridas de rua", "Trail running", "Maratonas", "Meias maratonas",
+      "Marathon Majors", "SuperHalfs", "Mega Finisher",
+      "Assessorias", "Run crews", "Review de tênis", "Suplementos"
+    ];
+    var html = cobre.map(function(n){ return "<span>"+n+"</span>"; }).join("");
     document.getElementById("marquee").innerHTML = html + html;
   })();
 
@@ -533,7 +573,11 @@
       // inscrição). Antes mandava direto para o organizador: o visitante saía
       // do site no primeiro clique e a home não passava relevância nenhuma para
       // as 286 páginas de prova. Sem `p`, cai no link do organizador.
-      var destino = r.p || r.url;
+      // BUG QUE ISTO CORRIGE: `r.p` vem como "/provas/...", caminho a partir da
+      // RAIZ DO DOMÍNIO. O site mora em rhkersul.github.io/well-run-site/, então
+      // o clique ia para rhkersul.github.io/provas/... e dava 404 em TODA prova.
+      // Os outros geradores já prefixavam com o endereço base; só este JS não.
+      var destino = r.p ? SITE + r.p : r.url;
       var externo = !r.p && r.url;
       var href = destino ? ' href="'+destino+'"' + (externo ? ' target="_blank" rel="noopener"' : '') : '';
       var place = (r.c ? r.c : "") + (r.uf ? "/"+r.uf : "");
