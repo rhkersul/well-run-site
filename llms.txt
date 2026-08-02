@@ -2,7 +2,7 @@
 
 > Calendario de corridas de rua e trail running do Brasil. Reune data, cidade,
 > local de largada, distancias e o link oficial de inscricao de
-> 294 provas em 71 cidades. A RUN1 nao vende inscricao: leva o
+> 293 provas em 71 cidades. A RUN1 nao vende inscricao: leva o
 > corredor direto para a pagina do organizador.
 
 Cobertura atual: BA, ES, MG, PR, RJ, RS, SC, SP.
@@ -16,7 +16,7 @@ Atualizado em 2026-08-02.
 
 ## Paginas principais
 
-- [Calendario completo](https://rhkersul.github.io/well-run-site/provas/): todas as 294 provas
+- [Calendario completo](https://rhkersul.github.io/well-run-site/provas/): todas as 293 provas
 - [Corridas de 5K](https://rhkersul.github.io/well-run-site/distancias/5k/)
 - [Corridas de 10K](https://rhkersul.github.io/well-run-site/distancias/10k/)
 - [Meias Maratonas (21K)](https://rhkersul.github.io/well-run-site/distancias/21k/)
@@ -25,9 +25,9 @@ Atualizado em 2026-08-02.
 - [Corridas em São Paulo](https://rhkersul.github.io/well-run-site/cidades/sao-paulo/): 69 provas
 - [Corridas em Rio de Janeiro](https://rhkersul.github.io/well-run-site/cidades/rio-de-janeiro/): 32 provas
 - [Corridas em Belo Horizonte](https://rhkersul.github.io/well-run-site/cidades/belo-horizonte/): 30 provas
-- [Corridas em Florianópolis](https://rhkersul.github.io/well-run-site/cidades/florianopolis/): 24 provas
 - [Corridas em Curitiba](https://rhkersul.github.io/well-run-site/cidades/curitiba/): 23 provas
 - [Corridas em Porto Alegre](https://rhkersul.github.io/well-run-site/cidades/porto-alegre/): 23 provas
+- [Corridas em Florianópolis](https://rhkersul.github.io/well-run-site/cidades/florianopolis/): 23 provas
 - [Corridas em Vitória](https://rhkersul.github.io/well-run-site/cidades/vitoria/): 15 provas
 - [Corridas em Campos do Jordão](https://rhkersul.github.io/well-run-site/cidades/campos-do-jordao/): 4 provas
 - [Corridas em Campos dos Goytacazes](https://rhkersul.github.io/well-run-site/cidades/campos-dos-goytacazes/): 3 provas
