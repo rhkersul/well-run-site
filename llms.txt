@@ -2,7 +2,7 @@
 
 > Calendario de corridas de rua e trail running do Brasil. Reune data, cidade,
 > local de largada, distancias e o link oficial de inscricao de
-> 283 provas em 63 cidades. A RUN1 nao vende inscricao: leva o
+> 282 provas em 63 cidades. A RUN1 nao vende inscricao: leva o
 > corredor direto para a pagina do organizador.
 
 Cobertura atual: ES, MG, PR, RJ, RS, SC, SP.
@@ -16,7 +16,7 @@ Atualizado em 2026-08-02.
 
 ## Paginas principais
 
-- [Calendario completo](https://rhkersul.github.io/well-run-site/provas/): todas as 283 provas
+- [Calendario completo](https://rhkersul.github.io/well-run-site/provas/): todas as 282 provas
 - [Corridas de 5K](https://rhkersul.github.io/well-run-site/distancias/5k/)
 - [Corridas de 10K](https://rhkersul.github.io/well-run-site/distancias/10k/)
 - [Meias Maratonas (21K)](https://rhkersul.github.io/well-run-site/distancias/21k/)
@@ -31,9 +31,9 @@ Atualizado em 2026-08-02.
 - [Corridas em Vitória](https://rhkersul.github.io/well-run-site/cidades/vitoria/): 15 provas
 - [Corridas em Campos do Jordão](https://rhkersul.github.io/well-run-site/cidades/campos-do-jordao/): 4 provas
 - [Corridas em Campos dos Goytacazes](https://rhkersul.github.io/well-run-site/cidades/campos-dos-goytacazes/): 3 provas
-- [Corridas em Gramado](https://rhkersul.github.io/well-run-site/cidades/gramado/): 3 provas
 - [Corridas em Domingos Martins](https://rhkersul.github.io/well-run-site/cidades/domingos-martins/): 3 provas
 - [Corridas em Urubici](https://rhkersul.github.io/well-run-site/cidades/urubici/): 2 provas
+- [Corridas em Gramado](https://rhkersul.github.io/well-run-site/cidades/gramado/): 2 provas
 
 ## App
 
