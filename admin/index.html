@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RUN 1 — Painel</title>
+<meta name="robots" content="noindex, nofollow">
+<!--
+  PAINEL DE CONTROLE DO RUN 1
+  ===========================================================================
+  Página estática. Toda a inteligência está no banco, em funções que checam se
+  o e-mail logado está na tabela `admins` antes de devolver linha alguma (ver
+  supabase/painel-e-busca.sql). Esta página não tem privilégio nenhum: publicá-la
+  não expõe dado, porque sem login de admin as funções levantam exceção.
+
+  É por isso que ela pode morar no GitHub Pages junto com o site público.
+
+  ---------------------------------------------------------------------------
+  DECISÃO DE GRÁFICO: TODO GRÁFICO É DE SÉRIE ÚNICA
+
+  Não é preferência estética, é resultado de medição. As duas cores da marca
+  — laranja #E8552B e verde #5E8A57 — têm separação de apenas ΔE 6,5 sob
+  daltonismo protan; abaixo de 8 significa que quem tem essa condição não
+  distingue as duas num mesmo gráfico. O `ink` #1E192A reprova como cor de
+  série (escuro e acinzentado demais: é cor de texto).
+
+  Então comparação nunca acontece por cor dentro de um gráfico. Acontece em
+  gráficos separados, lado a lado, cada um com uma série só. Texto sempre em
+  tinta, nunca na cor da série.
+-->
+<style>
+  :root {
+    --papel: #FAF8F1;
+    --cartao: #FFFFFF;
+    --sutil: #F2F0E9;
+    --tinta: #1E192A;
+    --tinta2: #6E6A76;
+    --tinta3: #9C98A2;
+    --linha: #E7E2D8;
+    --linha-forte: #DAD4C8;
+    --marca: #E8552B;
+    --marca-fraca: #FCE7DF;
+    --bom: #5E8A57;
+    --alerta: #B4541F;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--papel);
+    color: var(--tinta);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  .marca-logo { font-weight: 800; font-size: 26px; letter-spacing: -0.5px; }
+  .marca-logo span { color: var(--marca); }
+  .sub { color: var(--tinta2); font-size: 13px; margin-top: 2px; }
+
+  .periodo { display: flex; gap: 6px; }
+  .periodo button {
+    border: 1.4px solid var(--linha-forte); background: var(--cartao); color: var(--tinta2);
+    padding: 7px 14px; border-radius: 999px; font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .periodo button[aria-pressed="true"] { background: var(--marca); border-color: var(--marca); color: #fff; }
+
+  h2 { font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--tinta3); margin: 36px 0 12px; font-weight: 600; }
+  .nota { color: var(--tinta3); font-size: 12.5px; line-height: 1.6; margin-top: 10px; }
+
+  /* Stat tiles — número herói, sem gráfico. A forma certa para "um valor". */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 12px; }
+  .tile { background: var(--cartao); border: 1.5px solid var(--linha-forte); border-radius: 18px; padding: 16px 18px; }
+  .tile .rot { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--tinta3); font-weight: 600; }
+  .tile .val { font-size: 30px; font-weight: 300; letter-spacing: -1px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .tile .delta { font-size: 12.5px; margin-top: 4px; color: var(--tinta2); }
+  .tile .delta b { font-weight: 600; }
+  .up { color: var(--bom); }
+  .down { color: var(--alerta); }
+
+  .cartao { background: var(--cartao); border: 1.5px solid var(--linha-forte); border-radius: 18px; padding: 18px; }
+  .grade2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 720px) { .grade2 { grid-template-columns: 1fr; } }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--tinta3); font-weight: 600; padding: 0 10px 8px; }
+  td { padding: 9px 10px; border-top: 1px solid var(--linha); vertical-align: top; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .rolagem { overflow-x: auto; }
+
+  /* Barra dentro de célula — magnitude comparável, uma cor só. */
+  .barra { height: 8px; border-radius: 4px; background: var(--marca); min-width: 3px; }
+  .barra-trilha { background: var(--sutil); border-radius: 4px; height: 8px; }
+
+  button.acao {
+    border: 1.4px solid var(--linha-forte); background: var(--cartao); color: var(--tinta2);
+    padding: 5px 11px; border-radius: 999px; font: inherit; font-size: 12.5px; cursor: pointer; margin-right: 6px;
+  }
+  button.acao:hover { border-color: var(--tinta3); color: var(--tinta); }
+  button.acao.ok:hover { border-color: var(--bom); color: var(--bom); }
+
+  /* Login */
+  #login { max-width: 400px; margin: 12vh auto; text-align: center; }
+  #login input {
+    width: 100%; padding: 13px 15px; border-radius: 12px; border: 1.5px solid var(--linha-forte);
+    background: var(--cartao); font: inherit; margin: 14px 0 10px; color: var(--tinta);
+  }
+  #login button {
+    width: 100%; padding: 13px; border-radius: 12px; border: 0; background: var(--marca);
+    color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  .msg { font-size: 13px; color: var(--tinta2); margin-top: 12px; line-height: 1.6; }
+  .erro { color: var(--alerta); }
+  .hide { display: none !important; }
+
+  /* Tooltip do gráfico */
+  .tip {
+    position: fixed; pointer-events: none; background: var(--tinta); color: #fff;
+    padding: 6px 9px; border-radius: 8px; font-size: 12px; white-space: nowrap;
+    transform: translate(-50%, -140%); opacity: 0; transition: opacity .12s; z-index: 20;
+    font-variant-numeric: tabular-nums;
+  }
+  .vazio { color: var(--tinta3); font-size: 13px; padding: 14px 0; }
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="marca-logo">RUN <span>1</span></div>
+  <div class="sub">Painel de controle</div>
+  <input id="email" type="email" placeholder="seu e-mail de admin" autocomplete="email">
+  <button id="entrar">Receber link de acesso</button>
+  <div class="msg" id="loginMsg">
+    Você recebe um link por e-mail e entra sem senha. Só e-mails cadastrados como
+    admin conseguem ver os dados — o resto é bloqueado pelo próprio banco.
+  </div>
+</div>
+
+<div class="wrap hide" id="app">
+  <header>
+    <div>
+      <div class="marca-logo">RUN <span>1</span></div>
+      <div class="sub">Painel de controle · <span id="quem"></span> · <a href="#" id="sair" style="color:var(--tinta2)">sair</a></div>
+    </div>
+    <div class="periodo" id="periodo">
+      <button data-d="7">7 dias</button>
+      <button data-d="30" aria-pressed="true">30 dias</button>
+      <button data-d="90">90 dias</button>
+    </div>
+  </header>
+
+  <div id="aviso" class="hide"></div>
+
+  <h2>Visão geral</h2>
+  <div class="tiles" id="tiles"></div>
+  <div class="nota">
+    Cada número traz a comparação com o período anterior de mesma duração. Um total
+    sozinho não informa nada; a variação informa.
+  </div>
+
+  <h2>Ao longo do tempo</h2>
+  <div class="grade2">
+    <div class="cartao">
+      <div class="rot" style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--tinta3);font-weight:600">Aberturas do app</div>
+      <div id="g1"></div>
+    </div>
+    <div class="cartao">
+      <div class="rot" style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--tinta3);font-weight:600">Cliques em inscrição</div>
+      <div id="g2"></div>
+    </div>
+  </div>
+  <div class="nota">
+    Dois gráficos separados, não duas linhas no mesmo. As cores da marca têm
+    separação insuficiente para daltonismo (ΔE 6,5 protan), então comparar por cor
+    excluiria parte dos leitores. Séries separadas comparam melhor e não excluem ninguém.
+  </div>
+
+  <h2>Funil</h2>
+  <div class="cartao"><div id="funil"></div></div>
+  <div class="nota">
+    De cada pessoa que abriu o app, quantas chegaram a clicar em inscrever. É a
+    pergunta que mais importa: onde as pessoas desistem.
+  </div>
+
+  <h2>Provas mais procuradas</h2>
+  <div class="cartao rolagem"><div id="provas"></div></div>
+  <div class="nota">
+    "Taxa" é quantos por cento de quem abriu a prova clicou em se inscrever. Prova
+    muito aberta e pouco clicada é sinal de que a ficha não convence — ou que falta
+    informação nela.
+  </div>
+
+  <div class="grade2" style="margin-top:36px">
+    <div>
+      <h2 style="margin-top:0">Telas mais vistas</h2>
+      <div class="cartao rolagem"><div id="telas"></div></div>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Saúde da busca por IA</h2>
+      <div class="cartao rolagem"><div id="ia"></div></div>
+    </div>
+  </div>
+
+  <h2>Fila de curadoria — buscas sem resultado</h2>
+  <div class="cartao rolagem"><div id="buscas"></div></div>
+  <div class="nota">
+    O dado mais valioso do painel: pessoas dizendo com as próprias palavras qual
+    prova falta no catálogo. Ordenado por quantas vezes foi procurado — é a fila de
+    curadoria priorizada por demanda real, não por palpite.
+  </div>
+
+  <h2>Provas sugeridas pela IA — esperando conferência</h2>
+  <div class="cartao rolagem"><div id="sug"></div></div>
+  <div class="nota">
+    Nada aqui está no app. Aprovar marca como conferida na fila; incluir no catálogo
+    continua sendo passo manual em <code>races.json</code>, de propósito — dado de
+    prova entra conferido na fonte ou não entra.
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const URL_SB = 'https://wvrbygmbnejcqcuezpzo.supabase.co';
+const CHAVE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2cmJ5Z21ibmVqY3FjdWV6cHpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MjYwMTMsImV4cCI6MjEwMDAwMjAxM30.K62ymTdUU5kQaWLiTaK2G8MvboNO7shkGvN0TbstPHI';
+
+const sb = supabase.createClient(URL_SB, CHAVE);
+const $ = (id) => document.getElementById(id);
+const tip = $('tip');
+let dias = 30;
+
+const nf = new Intl.NumberFormat('pt-BR');
+const fmt = (n) => nf.format(Number(n ?? 0));
+
+function mostrarTip(txt, x, y) {
+  tip.textContent = txt;
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+  tip.style.opacity = '1';
+}
+const esconderTip = () => { tip.style.opacity = '0'; };
+
+/* ---------------------------------------------------------------------------
+   LOGIN
+--------------------------------------------------------------------------- */
+$('entrar').onclick = async () => {
+  const email = $('email').value.trim();
+  if (!email) return;
+  $('loginMsg').textContent = 'Enviando…';
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: window.location.href },
+  });
+  $('loginMsg').className = 'msg' + (error ? ' erro' : '');
+  $('loginMsg').textContent = error
+    ? 'Não consegui enviar: ' + error.message
+    : 'Link enviado. Abra o e-mail neste mesmo navegador.';
+};
+
+$('sair').onclick = async (e) => {
+  e.preventDefault();
+  await sb.auth.signOut();
+  location.reload();
+};
+
+$('periodo').onclick = (e) => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  dias = Number(b.dataset.d);
+  [...$('periodo').children].forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  void carregar();
+};
+
+/* ---------------------------------------------------------------------------
+   GRÁFICO DE LINHA — série única, 2px, com crosshair no hover.
+   Sem eixo duplo, sem segunda cor: ver a decisão no topo do arquivo.
+--------------------------------------------------------------------------- */
+function linha(alvo, pontos, rotulo) {
+  const el = $(alvo);
+  if (!pontos.length) { el.innerHTML = '<div class="vazio">Sem dados no período.</div>'; return; }
+
+  const W = 460, H = 150, ml = 34, mr = 8, mt = 12, mb = 22;
+  const max = Math.max(...pontos.map((p) => p.total), 1);
+  const px = (i) => ml + (i * (W - ml - mr)) / Math.max(pontos.length - 1, 1);
+  const py = (v) => mt + (H - mt - mb) * (1 - v / max);
+
+  const d = pontos.map((p, i) => `${i ? 'L' : 'M'}${px(i).toFixed(1)},${py(p.total).toFixed(1)}`).join(' ');
+  const area = `${d} L${px(pontos.length - 1).toFixed(1)},${py(0)} L${px(0).toFixed(1)},${py(0)} Z`;
+
+  // Três marcas de eixo: 0, metade, máximo. Grade recessiva.
+  const ticks = [0, Math.round(max / 2), max];
+
+  el.innerHTML = `
+  <svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img"
+       aria-label="${rotulo}: série diária, máximo ${max}">
+    ${ticks.map((t) => `
+      <line x1="${ml}" x2="${W - mr}" y1="${py(t)}" y2="${py(t)}" stroke="var(--linha)" stroke-width="1"/>
+      <text x="${ml - 6}" y="${py(t) + 3.5}" text-anchor="end" font-size="9.5" fill="var(--tinta3)">${fmt(t)}</text>`).join('')}
+    <path d="${area}" fill="var(--marca-fraca)"/>
+    <path d="${d}" fill="none" stroke="var(--marca)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pontos.map((p, i) => `<circle cx="${px(i).toFixed(1)}" cy="${py(p.total).toFixed(1)}" r="8"
+        fill="transparent" data-i="${i}" style="cursor:crosshair"/>`).join('')}
+    <text x="${ml}" y="${H - 6}" font-size="9.5" fill="var(--tinta3)">${pontos[0].dia.slice(5)}</text>
+    <text x="${W - mr}" y="${H - 6}" font-size="9.5" fill="var(--tinta3)" text-anchor="end">${pontos[pontos.length - 1].dia.slice(5)}</text>
+  </svg>`;
+
+  el.querySelectorAll('circle').forEach((c) => {
+    c.onmouseenter = (ev) => {
+      const p = pontos[Number(c.dataset.i)];
+      const r = ev.target.getBoundingClientRect();
+      mostrarTip(`${p.dia.slice(5)} · ${fmt(p.total)} (${fmt(p.pessoas)} pessoas)`, r.left + r.width / 2, r.top);
+    };
+    c.onmouseleave = esconderTip;
+  });
+}
+
+/* Funil — barras horizontais, uma cor, com a queda entre etapas explícita. */
+function funil(alvo, etapas) {
+  const el = $(alvo);
+  if (!etapas.length) { el.innerHTML = '<div class="vazio">Sem dados no período.</div>'; return; }
+  const base = Math.max(etapas[0].pessoas, 1);
+
+  el.innerHTML = etapas.map((e, i) => {
+    const pct = (e.pessoas / base) * 100;
+    const ant = i ? etapas[i - 1].pessoas : null;
+    const queda = ant && ant > 0 ? Math.round(100 - (e.pessoas / ant) * 100) : null;
+    return `
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px">
+        <span>${e.etapa}</span>
+        <span style="font-variant-numeric:tabular-nums;color:var(--tinta2)">
+          <b style="color:var(--tinta)">${fmt(e.pessoas)}</b> · ${pct.toFixed(0)}%
+          ${queda !== null && queda > 0 ? `<span style="color:var(--alerta)"> −${queda}%</span>` : ''}
+        </span>
+      </div>
+      <div class="barra-trilha"><div class="barra" style="width:${Math.max(pct, 0.6)}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function tabela(alvo, cols, linhas, vazio) {
+  const el = $(alvo);
+  if (!linhas.length) { el.innerHTML = `<div class="vazio">${vazio}</div>`; return; }
+  el.innerHTML = `<table><thead><tr>${cols.map((c) => `<th${c.num ? ' style="text-align:right"' : ''}>${c.t}</th>`).join('')}</tr></thead>
+  <tbody>${linhas.map((r) => `<tr>${cols.map((c) => `<td${c.num ? ' class="num"' : ''}>${c.v(r)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+
+/* ---------------------------------------------------------------------------
+   CARGA
+--------------------------------------------------------------------------- */
+async function rpc(nome, args) {
+  const { data, error } = await sb.rpc(nome, args);
+  if (error) throw error;
+  return data ?? [];
+}
+
+async function carregar() {
+  $('aviso').classList.add('hide');
+  try {
+    const [resumo, s1, s2, fun, provas, telas, buscas, ia, sug] = await Promise.all([
+      rpc('painel_resumo', { dias }),
+      rpc('painel_serie', { evento: 'app_open', dias }),
+      rpc('painel_serie', { evento: 'registration_click', dias }),
+      rpc('painel_funil', { dias }),
+      rpc('painel_provas', { dias, limite: 15 }),
+      rpc('painel_telas', { dias }),
+      rpc('painel_buscas_sem_resultado', { dias, limite: 30 }),
+      rpc('painel_saude_ia', { dias }),
+      rpc('painel_sugestoes', { estado: 'pendente' }),
+    ]);
+
+    $('tiles').innerHTML = resumo.map((m) => {
+      const a = Number(m.valor), b = Number(m.valor_anterior);
+      const dif = b > 0 ? Math.round(((a - b) / b) * 100) : null;
+      const cls = dif === null ? '' : dif > 0 ? 'up' : dif < 0 ? 'down' : '';
+      const txt = dif === null
+        ? 'sem base anterior'
+        : `<b class="${cls}">${dif > 0 ? '+' : ''}${dif}%</b> vs ${fmt(b)} antes`;
+      return `<div class="tile"><div class="rot">${m.metrica}</div>
+        <div class="val">${fmt(a)}</div><div class="delta">${txt}</div></div>`;
+    }).join('');
+
+    linha('g1', s1, 'Aberturas do app');
+    linha('g2', s2, 'Cliques em inscrição');
+    funil('funil', fun);
+
+    const maxAb = Math.max(...provas.map((p) => Number(p.aberturas)), 1);
+    tabela('provas', [
+      { t: 'Prova', v: (r) => esc(r.race_name || r.race_id || '—') },
+      { t: 'Aberturas', num: true, v: (r) => `${fmt(r.aberturas)}
+          <div class="barra" style="width:${(Number(r.aberturas) / maxAb) * 60}px;display:inline-block;margin-left:8px;vertical-align:middle"></div>` },
+      { t: 'Cliques', num: true, v: (r) => fmt(r.cliques) },
+      { t: 'Taxa', num: true, v: (r) => `${r.taxa}%` },
+    ], provas, 'Nenhuma prova aberta no período.');
+
+    tabela('telas', [
+      { t: 'Tela', v: (r) => esc(r.tela) },
+      { t: 'Visitas', num: true, v: (r) => fmt(r.visitas) },
+      { t: 'Pessoas', num: true, v: (r) => fmt(r.pessoas) },
+    ], telas, 'Nenhuma tela registrada.');
+
+    tabela('ia', [
+      { t: 'Dia', v: (r) => r.dia.slice(5) },
+      { t: 'Buscas', num: true, v: (r) => fmt(r.buscas) },
+      { t: 'Achou', num: true, v: (r) => fmt(r.com_resultado) },
+      { t: 'Erros', num: true, v: (r) => Number(r.erros) ? `<span class="down">${fmt(r.erros)}</span>` : '0' },
+      { t: 'ms', num: true, v: (r) => fmt(r.ms_medio) },
+    ], ia, 'Nenhuma busca por IA ainda.');
+
+    tabela('buscas', [
+      { t: 'O que procuraram', v: (r) => esc(r.busca) },
+      { t: 'Vezes', num: true, v: (r) => fmt(r.vezes) },
+      { t: 'Última', num: true, v: (r) => new Date(r.ultima).toLocaleDateString('pt-BR') },
+    ], buscas, 'Nenhuma busca sem resultado — ou a busca por IA ainda não foi usada.');
+
+    tabela('sug', [
+      { t: 'Prova', v: (r) => `<b>${esc(r.name)}</b><div style="color:var(--tinta3);font-size:12px">busca: ${esc(r.query || '—')}</div>` },
+      { t: 'Quando/Onde', v: (r) => esc([r.race_date || 'data ?', [r.city, r.state].filter(Boolean).join('/')].filter(Boolean).join(' · ')) },
+      { t: 'Fonte', v: (r) => r.source_url ? `<a href="${esc(r.source_url)}" target="_blank" rel="noopener" style="color:var(--marca)">abrir</a>` : '—' },
+      { t: '', v: (r) => `<button class="acao ok" data-ok="${r.id}">Aprovar</button><button class="acao" data-no="${r.id}">Recusar</button>` },
+    ], sug, 'Nenhuma sugestão pendente.');
+
+    $('sug').querySelectorAll('button').forEach((b) => {
+      b.onclick = async () => {
+        const id = b.dataset.ok || b.dataset.no;
+        b.disabled = true;
+        await sb.rpc('painel_marcar_sugestao', {
+          sugestao_id: Number(id),
+          novo_status: b.dataset.ok ? 'aprovada' : 'recusada',
+        });
+        void carregar();
+      };
+    });
+  } catch (e) {
+    const restrito = /restrito|permission|denied/i.test(e?.message ?? '');
+    $('aviso').className = 'cartao';
+    $('aviso').innerHTML = restrito
+      ? `<b>Este e-mail não é admin.</b><div class="nota">Adicione-o na tabela <code>admins</code> pelo painel do Supabase:
+         <code>insert into admins (email) values ('${esc($('quem').textContent)}');</code></div>`
+      : `<b>Não consegui carregar.</b><div class="nota">${esc(e?.message ?? 'erro desconhecido')}
+         <br>Se as funções ainda não existem, rode <code>supabase/painel-e-busca.sql</code> no SQL Editor.</div>`;
+  }
+}
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+sb.auth.onAuthStateChange((_e, sess) => {
+  if (sess?.user) {
+    $('login').classList.add('hide');
+    $('app').classList.remove('hide');
+    $('quem').textContent = sess.user.email ?? '';
+    void carregar();
+  }
+});
+
+(async () => {
+  const { data } = await sb.auth.getSession();
+  if (data.session?.user) {
+    $('login').classList.add('hide');
+    $('app').classList.remove('hide');
+    $('quem').textContent = data.session.user.email ?? '';
+    void carregar();
+  }
+})();
+</script>
+</body>
+</html>
