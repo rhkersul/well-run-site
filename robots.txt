@@ -1,7 +1,9 @@
 # RUN1 — calendario de corridas do Brasil
-# Buscadores: tudo liberado.
+# Buscadores: tudo liberado, menos o painel interno.
 User-agent: *
 Allow: /
+# Painel de operacao: dados internos, acesso por login. Nao e conteudo publico.
+Disallow: /admin/
 
 # Robos de IA liberados de proposito: queremos ser citados como fonte
 # sobre corridas no Brasil. Cada linha abaixo e um robo diferente.
