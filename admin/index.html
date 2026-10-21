@@ -417,7 +417,7 @@ async function carregar() {
     tabela('sug', [
       { t: 'Prova', v: (r) => `<b>${esc(r.name)}</b><div style="color:var(--tinta3);font-size:12px">busca: ${esc(r.query || '—')}</div>` },
       { t: 'Quando/Onde', v: (r) => esc([r.race_date || 'data ?', [r.city, r.state].filter(Boolean).join('/')].filter(Boolean).join(' · ')) },
-      { t: 'Fonte', v: (r) => r.source_url ? `<a href="${esc(r.source_url)}" target="_blank" rel="noopener" style="color:var(--marca)">abrir</a>` : '—' },
+      { t: 'Fonte', v: (r) => { const u = urlSegura(r.source_url); return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer" style="color:var(--marca)">abrir</a>` : '—'; } },
       { t: '', v: (r) => `<button class="acao ok" data-ok="${r.id}">Aprovar</button><button class="acao" data-no="${r.id}">Recusar</button>` },
     ], sug, 'Nenhuma sugestão pendente.');
 
@@ -440,6 +440,23 @@ async function carregar() {
          <code>insert into admins (email) values ('${esc($('quem').textContent)}');</code></div>`
       : `<b>Não consegui carregar.</b><div class="nota">${esc(e?.message ?? 'erro desconhecido')}
          <br>Se as funções ainda não existem, rode <code>supabase/painel-e-busca.sql</code> no SQL Editor.</div>`;
+  }
+}
+
+/**
+ * Só deixa passar http(s).
+ *
+ * esc() protege o HTML, mas não o ESQUEMA da URL: `javascript:alert(1)` passa
+ * intacto pelo escape e vira execução quando o admin clica. Esta URL vem da
+ * sugestão da IA, que por sua vez vem de página da internet — ou seja, é
+ * conteúdo de terceiro renderizado dentro de uma sessão autenticada de admin.
+ */
+function urlSegura(u) {
+  try {
+    const p = new URL(String(u));
+    return p.protocol === 'http:' || p.protocol === 'https:' ? p.href : null;
+  } catch {
+    return null;
   }
 }
 
